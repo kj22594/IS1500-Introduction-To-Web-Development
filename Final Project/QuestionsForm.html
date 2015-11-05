@@ -1,0 +1,109 @@
+<hr/>
+<p>Have any questions about what site to use or on specific fantasy football questions? Leave them here and we will try to get back to you.</p>
+<form onsubmit="return validate()" action="http://is1500-001176776.atwebpages.com/questions.php"  method="post" target="_blank">
+
+<table>
+
+<tr>
+<td><p>First Name:</p></td>
+<td align="left"><input type="text" id="fname"/></td>
+<td><span id="firstError" style="color:red;font-style:italic;font-size:9pt;"></span></td>
+</tr>
+
+<tr>
+<td><p>Last Name:</p></td>
+<td align="left"><input type="text" id="lname"/></td>
+<td><span id="lastError" style="color:red;font-style:italic;font-size:9pt;"></span></td>
+</tr>
+
+<tr>
+<td><p>Email:</p></td>
+<td align="left"><input type="email" id="emailaddress"/></td>
+<td><span id="emailError" style="color:red;font-style:italic;font-size:9pt;"></span></td>
+</tr>
+
+<tr>
+<td><p>Questions:</p></td>	
+<td><textarea name="comments" id="question" rows="10" cols="21" placeholder="Add questions here"></textarea></td>
+<td><span id="questionError" style="color:red;font-style:italic;font-size:9pt;"></span></td>
+</tr>
+
+<tr>
+<td>
+<input type="submit" value="Submit"/>
+</td>
+<td></td>
+</tr>
+
+</table>
+
+<input  type="hidden" name="myemail" value="staley.k@husky.neu.edu"/>
+<input  type="hidden" name="subject" value="Fantasy football questions for Gridiron"/>
+
+</form>
+
+<script>
+
+function validate()
+{
+  // Variables for the span used to generate text 
+  var firstError = document.getElementById("firstError");
+  var lastError = document.getElementById("lastError");
+  var questionError = document.getElementById("questionError");
+  var emailError = document.getElementById("emailError");
+  
+  // get names
+  var fname = document.getElementById("fname").value;
+  var lname = document.getElementById("lname").value;
+  var question = document.getElementById("question").value;
+  var emailaddress = document.getElementById('emailaddress').value;
+
+  // Check names, questions and email
+  if (fname == "" || isNaN(fname) == false)
+  {
+    lastError.innerHTML = "";
+    emailError.innerHTML = "";
+    questionError.innerHTML = "";
+    firstError.innerHTML = "Please enter your first name here."
+    document.getElementById("fname").focus("fname"); 
+    return false; 
+  }  
+  
+  if (lname == "" || isNaN(lname) == false)
+  {
+    firstError.innerHTML = "";
+    emailError.innerHTML = "";
+    questionError.innerHTML = "";
+    lastError.innerHTML = "Please enter your last name here."
+    document.getElementById("lname").focus("lname"); 
+    return false; 
+  }  
+
+  if (emailaddress == "")
+  {
+    firstError.innerHTML = "";
+    lastError.innerHTML = "";
+    questionError.innerHTML = "";
+    emailError.innerHTML = "Please enter your email address here."
+    document.getElementById("emailaddress").focus("emailaddress"); 
+    return false; 
+  } 
+
+  if (question == "" || isNaN(question) == false)
+  {
+    firstError.innerHTML = "";
+    emailError.innerHTML = "";
+    lastError.innerHTML = "";
+    questionError.innerHTML = "Please enter your question(s) here."
+    document.getElementById("question").focus("question"); 
+    return false; 
+  } 
+
+
+  firstError.innerHTML = "";
+  emailError.innerHTML = "";
+  lastError.innerHTML = "";
+  question.innerHTML = "";
+  return true;
+}
+</script>

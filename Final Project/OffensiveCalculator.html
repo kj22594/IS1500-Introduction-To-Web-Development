@@ -1,0 +1,152 @@
+<table>
+<th colspan="3">Offensive Fantasy Point Calculator</th>
+<tr>
+<td><p>Select a statistic:</p></td>
+<td>
+<select id="Calculator">
+  <option id="pyards" value="pyards">Passing Yards</option>
+  <option id="ptd" value="ptd">Passing Touchdown(s)</option>
+  <option id="intthrown" value="intthrown">Interception(s) Thrown</option>
+  <option id="rushyards" value="rushyards">Rushing Yards</option>
+  <option id="rushtd" value="rushtd">Rushing Touchdown(s)</option>
+  <option id="recyards" value="recyards">Receiving Yards</option>
+  <option id="rectd" value="rectd">Receiving Touchdown(s)</option>
+  <option id="rec" value="rec">Receptions</option>
+  <option id="0-39" value="0-39">Field Goal(s) (0-39 Yards)</option>
+  <option id="40-49" value="40-49">Field Goal(s) (40-49 Yards)</option>
+  <option id="50+" value="50+">Field Goal(s) (50+ Yards)</option>
+  <option id="PAT" value="PAT">PAT</option>
+</select>
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td><p>Enter a value:</p></td>
+<td><input type="number" id="inputbox"/></td>
+<td><span id="inputError" style="color:red;font-size:9pt"></span></td>
+</tr>
+
+<tr>
+<td><img id="captchaImageOffense" src="http://bit.ly/1gHKIfC"></td>
+<td><input type="text" id="captchaInputOffense"/></td>
+<td><span id="captchaErrorOffense" style="color:red;font-size:9pt"></span></td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<button onClick="calculateFantasyPoints()">Calculate</button>
+</td>
+<td></td>
+<td><span id="finalOutcome"></span></td>
+</tr>
+
+</table>
+
+
+
+
+
+<script>
+function calculateFantasyPoints()
+{
+  //Captcha
+  var captchaInputCase = document.getElementById("captchaInputOffense").value;
+  var captchaErrorOffense = document.getElementById("captchaErrorOffense");
+  //Makes the captcha not case sensitive
+  var captchaInputOffense = captchaInputCase.toLowerCase();
+
+  // Dropdown
+  var offenseList = document.getElementById("Calculator");
+  var offenseOption = offenseList.options[offenseList.selectedIndex].value;
+  
+  // Textbox
+  var inputValue = document.getElementById("inputbox");
+  var inputNumber = document.getElementById("inputbox").value;
+  
+  // Spans
+  var finalOutcome = document.getElementById("finalOutcome");
+  var inputError = document.getElementById("inputError");
+  var fantasyOutcome = 0;
+
+  if (captchaInputOffense != "sleiv sdkgldg")
+  {
+    captchaErrorOffense.innerHTML = "You messed up the captcha. Please try again.";
+    document.getElementById("captchaInputOffense").focus("captchaInputOffense");
+    finalOutcome.innerHTML = "";
+    inputError.innerHTML = "";
+    return;
+  }
+ 
+  if (offenseOption == "pyards")
+  {
+    fantasyOutcome = inputNumber/25;
+  }
+
+  if (offenseOption == "ptd" || offenseOption =="rushtd" || offenseOption == "rectd")
+  {
+    fantasyOutcome = 6 * inputNumber;
+  }
+
+  if (offenseOption == "intthrown")
+  {
+    fantasyOutcome = -1 * inputNumber;
+  }
+  
+  if (offenseOption == "rushyards" || offenseOption == "recyards")
+  {
+    fantasyOutcome = inputNumber/10;
+  }
+
+  if (offenseOption == "rec" || offenseOption == "PAT")
+  {
+    fantasyOutcome = inputNumber;
+  }
+
+  if (offenseOption == "0-39")
+  {
+    fantasyOutcome = 3 * inputNumber;
+  }
+
+  if (offenseOption == "40-49")
+  {
+    fantasyOutcome = 4 * inputNumber;
+  } 
+
+  if (offenseOption == "50+")
+  {
+    fantasyOutcome = 5 * inputNumber;
+  } 
+
+  if (inputNumber == "")
+  {
+    inputError.innerHTML = "Please enter a number here";
+    document.getElementById("inputbox").focus("inputbox");
+    finalOutcome.innerHTML = "";
+    captchaErrorOffense.innerHTML = "";
+    return; 
+  }
+  
+  if (inputNumber < 0)
+  {
+    if (offenseOption == "pyards" || offenseOption == "rushyards" || offenseOption == "recyards")
+      {
+        inputError.innerHTML = "";
+        captchaErrorOffense.innerHTML = "";
+        finalOutcome.innerHTML =("Fantasy Points: " + fantasyOutcome);
+      }
+   else
+      {
+        inputError.innerHTML = "You cannot enter a negative number here! Please enter a positive number here!";
+        document.getElementById("inputbox").focus("inputbox");
+        finalOutcome.innerHTML = "";
+        captchaErrorOffense.innerHTML = "";
+        return; 
+      }
+  }
+  
+  inputError.innerHTML = "";
+  captchaErrorOffense.innerHTML = "";
+  finalOutcome.innerHTML =("Fantasy Points: " + fantasyOutcome);
+}
+</script>

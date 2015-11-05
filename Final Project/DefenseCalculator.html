@@ -1,0 +1,112 @@
+<table>
+<th colspan="3">Defensive Fantasy Point Calculator</th>
+<tr>
+<td><p>Select a statistic:</p></td>
+<td>
+<select id="defenseCalculator">
+  <option id="rettd" value="rettd">Return Touchdown(s) (KR/PR)</option>
+  <option id="deftd" value="deftd">Defensive Touchdown(s)</option>
+  <option id="sack" value="sack">Sack(s)</option>
+  <option id="interception" value="interception">Interception(s)</option>
+  <option id="fumble" value="fumble">Fumble(s) Recovered</option>
+  <option id="safety" value="safety">Safety</option>
+
+</select>
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td><p>Enter a value:</p></td>
+<td><input type="number" min="0" id="defenseinputbox"/></td>
+<td><span id="defenseInputError" style="color:red;font-size:9pt"></span></td>
+</tr>
+
+<tr>
+<td><img id="captchaImageDefense" src="http://bit.ly/1WpPNtM"></td>
+<td><input type="text" id="captchaInputDefense"/></td>
+<td><span id="captchaErrorDefense" style="color:red;font-size:9pt"></span></td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<button onClick="calculateDefenseFantasyPoints()">Calculate</button>
+</td>
+<td></td>
+<td><span id="pointOutcome"></span></td>
+</tr>
+
+</table>
+
+
+<script>
+
+function calculateDefenseFantasyPoints()
+{
+    //Captcha
+  var captchaInputCaseSensitive = document.getElementById("captchaInputDefense").value;
+  var captchaErrorDefense = document.getElementById("captchaErrorDefense");
+  //Makes the captcha not case sensitive
+  var captchaInputDefense = captchaInputCaseSensitive.toLowerCase();
+
+  // Dropdown
+  var defenseList = document.getElementById("defenseCalculator");
+  var defenseOption = defenseList.options[defenseList.selectedIndex].value;
+  
+  // Textbox
+  var defenseInputValue = document.getElementById("defenseinputbox");
+  var defenseInputNumber = document.getElementById("defenseinputbox").value;
+  
+  // Spans
+  var pointOutcome = document.getElementById("pointOutcome");
+  var defenseInputError = document.getElementById("defenseInputError");
+  var finalFantasyOutcome = 0;
+
+  if (captchaInputDefense != "qwnhm klojyhjn")
+  {
+    captchaErrorDefense.innerHTML = "You messed up the captcha. Please try again.";
+    document.getElementById("captchaInputDefense").focus("captchaInputDefense");
+    pointOutcome.innerHTML = "";
+    defenseInputError.innerHTML = "";
+    return;
+    }
+ 
+  if (defenseOption == "interception" || defenseOption == "fumble" || defenseOption == "safety")
+  {
+    finalFantasyOutcome = 2 * defenseInputNumber;
+  }
+
+  if (defenseOption == "sack")
+  {
+    finalFantasyOutcome = defenseInputNumber;
+  }
+
+  if (defenseOption == "rettd" || defenseOption == "deftd")
+  {
+    finalFantasyOutcome = 6 * defenseInputNumber;
+  }
+
+  if (defenseInputNumber == "")
+  {
+    defenseInputError.innerHTML = "Please enter a number here!";
+    document.getElementById("defenseinputbox").focus("defenseinputbox");
+    pointOutcome.innerHTML = "";
+    captchaErrorDefense.innerHTML = "";
+    return; 
+  }
+  
+  if (defenseInputNumber < 0)
+  {
+    defenseInputError.innerHTML = "You cannot enter a negative number here. Please enter a positive number!";
+    document.getElementById("defenseinputbox").focus("defenseinputbox");
+    pointOutcome.innerHTML = "";
+    captchaErrorDefense.innerHTML = "";
+    return; 
+  }
+  
+  defenseInputError.innerHTML = "";
+  captchaErrorDefense.innerHTML = "";
+  pointOutcome.innerHTML =("Fantasy Points =" + finalFantasyOutcome);
+}
+
+</script>

@@ -1,0 +1,86 @@
+<hr/>
+<p>Have any suggestions on blog posts or content you would like to see? Please leave us some feedback here and we'll try to get back accomodate your requests!</p>
+<form onsubmit="return validateSuggestions()" action="http://is1500-001176776.atwebpages.com/suggestions.php"  method="post">
+
+<table>
+
+<tr>
+<td><p>First Name:</p></td>
+<td align="left"><input type="text" id="fname"/></td>
+<td><span id="firstError" style="color:red;font-style:italic;font-size:9pt;"></span></td>
+</tr>
+
+<tr>
+<td><p>Last Name:</p></td>
+<td align="left"><input type="text" id="lname"/></td>
+<td><span id="lastError" style="color:red;font-style:italic;font-size:9pt;"></span></td>
+</tr>
+
+<tr>
+<td><p>Suggestions:</p></td>	
+<td><textarea name="comments" id="suggest" rows="10" cols="30" placeholder="Add suggestions here"></textarea></td>
+<td><span id="suggestError" style="color:red;font-style:italic;font-size:9pt;"></span></td>
+</tr>
+
+<tr>
+<td>
+<input type="submit" value="Submit"/>
+</td>
+<td></td>
+</tr>
+
+</table>
+
+<input  type="hidden" name="myemail" value="staley.k@husky.neu.edu"/>
+<input  type="hidden" name="subject" value="Suggestions for Gridiron"/>
+
+</form>
+
+<script>
+
+function validateSuggestions()
+{
+  // Variables for the span used to generate text 
+  var firstError = document.getElementById("firstError");
+  var lastError = document.getElementById("lastError");
+  var suggestError = document.getElementById("suggestError");
+  
+  // get names
+  var fname = document.getElementById("fname").value;
+  var lname = document.getElementById("lname").value;
+  var suggest = document.getElementById("suggest").value;
+
+  // Check to make sure fuel cost is a number
+  if (fname == "" || isNaN(fname) == false)
+  {
+    lastError.innerHTML = "";
+    suggestError.innerHTML = "";
+    firstError.innerHTML = "Please enter your first name here."
+    document.getElementById("fname").focus("fname"); 
+    return false; 
+  }  
+  
+  if (lname == "" || isNaN(lname) == false)
+  {
+    firstError.innerHTML = "";
+    suggestError.innerHTML = "";
+    lastError.innerHTML = "Please enter your last name here."
+    document.getElementById("lname").focus("lname"); 
+    return false; 
+  }  
+
+  if (suggest == "" || isNaN(suggest) == false)
+  {
+    firstError.innerHTML = "";
+    lastError.innerHTML = "";
+    suggestError.innerHTML = "Please enter your suggestions here."
+    document.getElementById("suggest").focus("suggest"); 
+    return false; 
+  }  
+
+  firstError.innerHTML = "";
+  lastError.innerHTML = "";
+  suggest.innerHTML = "";
+  return true;
+}
+</script>
